@@ -3,11 +3,15 @@ import React, { PropTypes as RPT } from 'react';
 
 class Interval extends React.Component {
   static propTypes = {
+    changeValue: RPT.func,
     defaultValue: RPT.number,
     id: RPT.number,
+    name: RPT.string,
     max: RPT.number,
     min: RPT.number,
-    step: RPT.number
+    step: RPT.number,
+    value: RPT.string,
+    handleCalculateLoan: RPT.func
   }
 
   @autobind
@@ -20,20 +24,37 @@ class Interval extends React.Component {
     return options;
   }
 
+  @autobind
+  handleChange(event) {
+    const { changeValue, name, handleCalculateLoan } = this.props;
+    changeValue(event.target.value, name);
+    handleCalculateLoan();
+  }
+
   render() {
-    const { id, min, max, step, defaultValue } = this.props;
+    const { id, min, max, step, defaultValue, value } = this.props;
     return (
       <div>
-        <select>
+        <select onChange={this.handleChange} value={value || defaultValue}>
           {
-            this.selectBoxValues().map((value, index) =>
-              <option key={index} value={value} selected={value === defaultValue ? 'selected' : null}>
-                {value}
+            this.selectBoxValues().map((val, index) =>
+              <option key={index} value={val}>
+                {val}
               </option>
             )
           }
         </select>
-        <input id={id} type="range" min={min} max={max} step={step} value={defaultValue} />
+        <div>{min}</div>
+        <input
+          id={id}
+          type="range"
+          min={min}
+          max={max}
+          step={step}
+          value={value || defaultValue}
+          onChange={this.handleChange}
+        />
+        <div>{max}</div>
       </div>
     );
   }
