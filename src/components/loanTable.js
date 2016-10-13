@@ -16,23 +16,23 @@ class LoanTable extends React.Component {
         <tbody>
           <tr>
             <td>Total Principal</td>
-            <td>{totalPrincipal}</td>
+            <td className="loanTable-values">{totalPrincipal}</td>
           </tr>
           <tr>
             <td>Term</td>
-            <td>{term}</td>
+            <td className="loanTable-values">{term}</td>
           </tr>
           <tr>
             <td>Total cost of credit</td>
-            <td>{totalCostOfCredit}</td>
+            <td className="loanTable-values">{totalCostOfCredit}</td>
           </tr>
           <tr>
             <td>Total repayable amount</td>
-            <td>{totalRepayableAmount}</td>
+            <td className="loanTable-values">{totalRepayableAmount}</td>
           </tr>
           <tr>
             <td>Monthly payment</td>
-            <td>{monthlyPayment}</td>
+            <td className="loanTable-values">{monthlyPayment}</td>
           </tr>
         </tbody>
       </table>

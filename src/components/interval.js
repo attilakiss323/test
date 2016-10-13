@@ -18,7 +18,7 @@ class Interval extends React.Component {
   selectBoxValues() {
     const { max, step, min } = this.props;
     const options = [];
-    for (let i = min; i < max; i += step) {
+    for (let i = min; i < max + step; i += step) {
       options.push(i);
     }
     return options;
@@ -47,27 +47,31 @@ class Interval extends React.Component {
     const { id, min, max, step, defaultValue, value } = this.props;
     return (
       <div>
-        <select onChange={this.handleSelectBoxChange} value={value || defaultValue}>
-          {
-            this.selectBoxValues().map((val, index) =>
-              <option key={index} value={val}>
-                {val}
-              </option>
-            )
-          }
-        </select>
-        <div>{min}</div>
-        <input
-          id={id}
-          type="range"
-          min={min}
-          max={max}
-          step={step}
-          value={value || defaultValue}
-          onChange={this.handleSliderChange}
-          onMouseUp={this.handleStopSlide}
-        />
-        <div>{max}</div>
+        <div>
+          <select onChange={this.handleSelectBoxChange} value={value || defaultValue}>
+            {
+              this.selectBoxValues().map((val, index) =>
+                <option key={index} value={val}>
+                  {val}
+                </option>
+              )
+            }
+          </select>
+        </div>
+        <div>
+          <div className="interval-min-label">{min}</div>
+          <input
+            id={id}
+            type="range"
+            min={min}
+            max={max}
+            step={step}
+            value={value || defaultValue}
+            onChange={this.handleSliderChange}
+            onMouseUp={this.handleStopSlide}
+          />
+          <div className="interval-max-label">{max}</div>
+        </div>
       </div>
     );
   }

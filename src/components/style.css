@@ -1,0 +1,8 @@
+.interval-min-label, .interval-max-label {
+  display: inline-block;
+  padding: 10px;
+}
+
+.loanTable-values {
+  text-align: right;
+}

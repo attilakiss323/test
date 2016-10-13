@@ -5,6 +5,7 @@ import React, { PropTypes as RPT } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { fetchConstraints, changeValue, calculateLoan } from '../common/actions';
+import './style.css';
 
 @connect(
   ({ appReducer: reducer }) => ({
