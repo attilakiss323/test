@@ -29,8 +29,20 @@ class App extends React.Component {
 
     return (
       <div>
-        <Interval id={1} min={amountInterval.get('min')} max={amountInterval.get('max')} step={amountInterval.get('step')} />
-        <Interval id={1} min={termInterval.get('min')} max={termInterval.get('max')} step={termInterval.get('step')} />
+        <Interval
+          defaultValue={amountInterval.get('defaultValue')}
+          id={1}
+          max={amountInterval.get('max')}
+          min={amountInterval.get('min')}
+          step={amountInterval.get('step')}
+        />
+        <Interval
+          defaultValue={termInterval.get('defaultValue')}
+          id={1}
+          max={termInterval.get('max')}
+          min={termInterval.get('min')}
+          step={termInterval.get('step')}
+        />
       </div>
     );
   }

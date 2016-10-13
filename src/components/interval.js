@@ -3,9 +3,10 @@ import React, { PropTypes as RPT } from 'react';
 
 class Interval extends React.Component {
   static propTypes = {
+    defaultValue: RPT.number,
     id: RPT.number,
-    min: RPT.number,
     max: RPT.number,
+    min: RPT.number,
     step: RPT.number
   }
 
@@ -20,16 +21,19 @@ class Interval extends React.Component {
   }
 
   render() {
-    const { id, min, max, step } = this.props;
+    const { id, min, max, step, defaultValue } = this.props;
     return (
       <div>
         <select>
           {
             this.selectBoxValues().map((value, index) =>
-              <option key={index} value={value}>{value}</option>)
+              <option key={index} value={value} selected={value === defaultValue ? 'selected' : null}>
+                {value}
+              </option>
+            )
           }
         </select>
-        <input id={id} type="range" min={min} max={max} step={step} />
+        <input id={id} type="range" min={min} max={max} step={step} value={defaultValue} />
       </div>
     );
   }
