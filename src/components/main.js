@@ -35,7 +35,9 @@ class App extends React.Component {
   @autobind
   handleCalculateLoan() {
     const { calculateLoan } = this.props;
-    calculateLoan();
+    setTimeout(() => {
+      calculateLoan();
+    }, 100);
   }
 
   render() {

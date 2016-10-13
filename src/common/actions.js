@@ -28,9 +28,9 @@ export function calculateDefaultLoan() {
     const defaultAmount = getState().appReducer.getIn(['amountInterval', 'defaultValue']);
     const defaultTerm = getState().appReducer.getIn(['termInterval', 'defaultValue']);
 
-    requestManger.fetchEntities(`https://js-developer-second-round.herokuapp.com/api/v1/application/first-loan-offer?amount=${defaultAmount}&term=${defaultTerm}`)
+    requestManger.fetchEntities(`https://js-developer-second-round.herokuapp.com/api/v1/application/real-first-loan-offer?amount=${defaultAmount}&term=${defaultTerm}`)
       .then(res => dispatch({ type: CALULATE_LOAN_SUCCESS, data: res.data }))
-      .catch(res => dispatch({ type: CALULATE_LOAN_FAILURE, error: res.error }));
+      .catch(res => dispatch({ type: CALULATE_LOAN_FAILURE, error: res }));
   };
 }
 
@@ -42,7 +42,7 @@ export function calculateLoan() {
     const amount = amountInterval.get('value') || amountInterval.get('defaultValue');
     const term = termInterval.get('value') || termInterval.get('defaultValue');
 
-    requestManger.fetchEntities(`https://js-developer-second-round.herokuapp.com/api/v1/application/first-loan-offer?amount=${amount}&term=${term}`)
+    requestManger.fetchEntities(`https://js-developer-second-round.herokuapp.com/api/v1/application/real-first-loan-offer?amount=${amount}&term=${term}`)
       .then(res => dispatch({ type: CALULATE_LOAN_SUCCESS, data: res.data }))
       .catch(res => dispatch({ type: CALULATE_LOAN_FAILURE, error: res.error }));
   };

@@ -25,9 +25,21 @@ class Interval extends React.Component {
   }
 
   @autobind
-  handleChange(event) {
+  handleSelectBoxChange(event) {
     const { changeValue, name, handleCalculateLoan } = this.props;
     changeValue(event.target.value, name);
+    handleCalculateLoan();
+  }
+
+  @autobind
+  handleSliderChange(event) {
+    const { changeValue, name } = this.props;
+    changeValue(event.target.value, name);
+  }
+
+  @autobind
+  handleStopSlide() {
+    const { handleCalculateLoan } = this.props;
     handleCalculateLoan();
   }
 
@@ -35,7 +47,7 @@ class Interval extends React.Component {
     const { id, min, max, step, defaultValue, value } = this.props;
     return (
       <div>
-        <select onChange={this.handleChange} value={value || defaultValue}>
+        <select onChange={this.handleSelectBoxChange} value={value || defaultValue}>
           {
             this.selectBoxValues().map((val, index) =>
               <option key={index} value={val}>
@@ -52,7 +64,8 @@ class Interval extends React.Component {
           max={max}
           step={step}
           value={value || defaultValue}
-          onChange={this.handleChange}
+          onChange={this.handleSliderChange}
+          onMouseUp={this.handleStopSlide}
         />
         <div>{max}</div>
       </div>

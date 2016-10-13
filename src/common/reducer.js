@@ -24,6 +24,10 @@ export default function reducer(inputState = initialState, action) {
 
     case actions.CALULATE_LOAN_SUCCESS:
       return state.updateIn(['loanInfo'], () => generateLoanInfo(action.data));
+
+    case actions.CALULATE_LOAN_FAILURE:
+      return state.updateIn(['apiError'], () => action.error.toString());
+
     default:
       return state;
   }

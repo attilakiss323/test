@@ -45,8 +45,8 @@ export function generateTermInterval(data) {
 
 export function generateLoanInfo(data) {
   return new Loan({
-    totalPrincipal: data.totalPrincipal,
-    term: data.term,
+    totalPrincipal: parseInt(data.totalPrincipal, 10),
+    term: parseInt(data.term, 10),
     totalCostOfCredit: data.totalCostOfCredit,
     totalRepayableAmount: data.totalRepayableAmount,
     monthlyPayment: data.monthlyPayment
