@@ -2,17 +2,17 @@ import React, { PropTypes as RPT } from 'react';
 
 class LoanTable extends React.Component {
   static propTypes = {
-    totalPrincipal: RPT.number,
+    monthlyPayment: RPT.number,
     term: RPT.number,
     totalCostOfCredit: RPT.number,
-    totalRepayableAmount: RPT.number,
-    monthlyPayment: RPT.number
+    totalPrincipal: RPT.number,
+    totalRepayableAmount: RPT.number
   }
 
   render() {
     const { totalPrincipal, term, totalCostOfCredit, totalRepayableAmount, monthlyPayment } = this.props;
     return (
-      <div>
+      <table>
         <tbody>
           <tr>
             <td>Total Principal</td>
@@ -35,7 +35,7 @@ class LoanTable extends React.Component {
             <td>{monthlyPayment}</td>
           </tr>
         </tbody>
-      </div>
+      </table>
     );
   }
 }

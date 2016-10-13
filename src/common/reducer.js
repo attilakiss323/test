@@ -16,6 +16,9 @@ export default function reducer(inputState = initialState, action) {
         .updateIn(['amountInterval'], () => generateAmountInterval(action.data))
         .updateIn(['termInterval'], () => generateTermInterval(action.data));
 
+    case actions.FETCH_CONSTRAINTS_FAILURE:
+      return state.updateIn(['apiError'], () => action.error.toString());
+
     case actions.CHANGE_VALUE:
       return state.updateIn([action.name, 'value'], () => action.value);
 

@@ -10,7 +10,8 @@ import { fetchConstraints, changeValue, calculateLoan } from '../common/actions'
   ({ appReducer: reducer }) => ({
     amountInterval: reducer.get('amountInterval'),
     termInterval: reducer.get('termInterval'),
-    loanInfo: reducer.get('loanInfo')
+    loanInfo: reducer.get('loanInfo'),
+    apiError: reducer.get('apiError')
   }),
   dispatch => bindActionCreators({ fetchConstraints, changeValue, calculateLoan }, dispatch)
 )
@@ -18,6 +19,7 @@ import { fetchConstraints, changeValue, calculateLoan } from '../common/actions'
 class App extends React.Component {
   static propTypes = {
     amountInterval: RPT.object,
+    apiError: RPT.string,
     calculateLoan: RPT.func,
     changeValue: RPT.func,
     fetchConstraints: RPT.func,
@@ -32,22 +34,20 @@ class App extends React.Component {
 
   @autobind
   handleCalculateLoan() {
-    const { calculateLoan, amountInterval, termInterval } = this.props;
-    const amountValue = amountInterval.get('value') || amountInterval.get('defaultValue');
-    const termValue = termInterval.get('value') || termInterval.get('defaultValue');
-    calculateLoan(amountValue, termValue);
+    const { calculateLoan } = this.props;
+    calculateLoan();
   }
 
   render() {
-    const { amountInterval, termInterval, changeValue, loanInfo } = this.props;
+    const { amountInterval, termInterval, changeValue, loanInfo, apiError } = this.props;
 
     return (
       <div>
         <p>Amount</p>
         <Interval
-          handleCalculateLoan={this.handleCalculateLoan}
           changeValue={changeValue}
           defaultValue={amountInterval.get('defaultValue')}
+          handleCalculateLoan={this.handleCalculateLoan}
           id={1}
           max={amountInterval.get('max')}
           min={amountInterval.get('min')}
@@ -57,9 +57,9 @@ class App extends React.Component {
         />
         <p>Term</p>
         <Interval
-          handleCalculateLoan={this.handleCalculateLoan}
           changeValue={changeValue}
           defaultValue={termInterval.get('defaultValue')}
+          handleCalculateLoan={this.handleCalculateLoan}
           id={1}
           max={termInterval.get('max')}
           min={termInterval.get('min')}
@@ -68,12 +68,13 @@ class App extends React.Component {
           value={termInterval.get('value')}
         />
         <LoanTable
-          totalPrincipal={loanInfo.get('totalPrincipal')}
+          monthlyPayment={loanInfo.get('monthlyPayment')}
           term={loanInfo.get('term')}
           totalCostOfCredit={loanInfo.get('totalCostOfCredit')}
+          totalPrincipal={loanInfo.get('totalPrincipal')}
           totalRepayableAmount={loanInfo.get('totalRepayableAmount')}
-          monthlyPayment={loanInfo.get('monthlyPayment')}
         />
+        { apiError && <div>{apiError}</div>}
       </div>
     );
   }

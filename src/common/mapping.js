@@ -18,6 +18,7 @@ export const Slider = Record({
 
 const Mapping = Record({
   amountInterval: new Slider({}),
+  apiError: null,
   termInterval: new Slider({}),
   loanInfo: new Loan({})
 });

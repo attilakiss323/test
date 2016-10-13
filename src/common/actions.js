@@ -10,7 +10,8 @@ export function fetchConstraints() {
   return dispatch => {
     requestManger.fetchEntities('https://js-developer-second-round.herokuapp.com/api/v1/application/constraints')
       .then(res => dispatch({ type: FETCH_CONSTRAINTS_SUCCESS, data: res.data }))
-      .catch(res => dispatch({ type: FETCH_CONSTRAINTS_FAILURE, error: res.error }));
+      .then(() => dispatch(calculateDefaultLoan()))
+      .catch(res => dispatch({ type: FETCH_CONSTRAINTS_FAILURE, error: res }));
   };
 }
 
@@ -22,8 +23,25 @@ export function changeValue(value, name) {
   };
 }
 
-export function calculateLoan(amount, term) {
-  return dispatch => {
+export function calculateDefaultLoan() {
+  return (dispatch, getState) => {
+    const defaultAmount = getState().appReducer.getIn(['amountInterval', 'defaultValue']);
+    const defaultTerm = getState().appReducer.getIn(['termInterval', 'defaultValue']);
+
+    requestManger.fetchEntities(`https://js-developer-second-round.herokuapp.com/api/v1/application/first-loan-offer?amount=${defaultAmount}&term=${defaultTerm}`)
+      .then(res => dispatch({ type: CALULATE_LOAN_SUCCESS, data: res.data }))
+      .catch(res => dispatch({ type: CALULATE_LOAN_FAILURE, error: res.error }));
+  };
+}
+
+export function calculateLoan() {
+  return (dispatch, getState) => {
+    const amountInterval = getState().appReducer.getIn(['amountInterval']);
+    const termInterval = getState().appReducer.getIn(['termInterval']);
+
+    const amount = amountInterval.get('value') || amountInterval.get('defaultValue');
+    const term = termInterval.get('value') || termInterval.get('defaultValue');
+
     requestManger.fetchEntities(`https://js-developer-second-round.herokuapp.com/api/v1/application/first-loan-offer?amount=${amount}&term=${term}`)
       .then(res => dispatch({ type: CALULATE_LOAN_SUCCESS, data: res.data }))
       .catch(res => dispatch({ type: CALULATE_LOAN_FAILURE, error: res.error }));
